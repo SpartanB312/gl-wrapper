@@ -1,8 +1,6 @@
 package dev.luna5ama.glwrapper
 
 import dev.luna5ama.glwrapper.enums.BufferTarget
-import dev.luna5ama.glwrapper.enums.ShaderStage
-import dev.luna5ama.glwrapper.objects.BufferObject
 import dev.luna5ama.glwrapper.objects.SamplerObject
 import dev.luna5ama.glwrapper.objects.TextureObject
 import kotlin.contracts.ExperimentalContracts
@@ -15,16 +13,20 @@ data class ShaderBindingSpecs(
 ) {
     data class Sampler(
         val name: String,
-        val texture: TextureObject,
+        val texture: Int,
         val sampler: SamplerObject?
     ) {
-        constructor(name: String, texture: TextureObject) : this(name, texture, null)
+        constructor(name: String, texture: Int) : this(name, texture, null)
+        constructor(name: String, texture: TextureObject) : this(name, texture.id, null)
+        constructor(name: String, texture: TextureObject, sampler: SamplerObject) : this(name, texture.id, sampler)
     }
 
     data class Image(
         val name: String,
-        val texture: TextureObject
-    )
+        val texture: Int
+    ) {
+        constructor(name: String, texture: TextureObject) : this(name, texture.id)
+    }
 
     data class Buffer(
         val name: String,
@@ -48,6 +50,10 @@ data class ShaderBindingSpecs(
             sampler(Sampler(name, texture, sampler))
         }
 
+        fun sampler(name: String, texture: Int) {
+            sampler(Sampler(name, texture))
+        }
+
         fun sampler(name: String, texture: TextureObject) {
             sampler(Sampler(name, texture))
         }
@@ -65,6 +71,10 @@ data class ShaderBindingSpecs(
             require(v == null) {
                 "Duplicated image unit name: ${binding.name}, existing: $v, new: $binding"
             }
+        }
+
+        fun image(name: String, texture: Int) {
+            image(Image(name, texture))
         }
 
         fun image(name: String, texture: TextureObject) {

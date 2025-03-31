@@ -675,7 +675,7 @@ open class ShaderProgram private constructor(
                     for ((name, index) in bindingPoints) {
                         val binding = bindings[name]
                         require(binding != null) { "Missing binding for sampler unit: $name" }
-                        textures.setInt(index * 4L, binding.texture.id)
+                        textures.setInt(index * 4L, binding.texture)
                         samplers.setInt(index * 4L, binding.sampler?.id ?: 0)
                     }
                     glBindTextures(0, count, textures)
@@ -705,7 +705,7 @@ open class ShaderProgram private constructor(
                     for ((name, index) in bindingPoints) {
                         val binding = bindings[name]
                         require(binding != null) { "Missing binding for image unit: $name" }
-                        textures.setInt(index * 4L, binding.texture.id)
+                        textures.setInt(index * 4L, binding.texture)
                     }
                     glBindImageTextures(0, count, textures)
                 }

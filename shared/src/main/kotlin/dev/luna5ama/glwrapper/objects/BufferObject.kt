@@ -6,7 +6,8 @@ import dev.luna5ama.glwrapper.enums.GLObjectType
 import dev.luna5ama.kmogus.Arr
 import dev.luna5ama.kmogus.Ptr
 
-sealed class BufferObject : IGLObject by IGLObject.Impl(GLObjectType.Buffer), IGLTargetBinding, BufferView {
+open class BufferObject : IGLObject by IGLObject.Impl(GLObjectType.Buffer), IGLTargetBinding, BufferView {
+
     var size = -1L; private set
 
     override val viewBuffer: BufferObject
@@ -189,4 +190,5 @@ sealed class BufferObject : IGLObject by IGLObject.Impl(GLObjectType.Buffer), IG
             }
         }
     }
+
 }
