@@ -87,7 +87,7 @@ data class ShaderBindingSpecs(
         }
 
         fun buffer(binding: Buffer) {
-            val map = buffers.getOrPut(binding.target, ::mutableMapOf)
+            val map = buffers.getOrPut(binding.target) { Object2ObjectOpenHashMap() }
             val v = map.put(binding.name, binding)
             require(v == null) {
                 "Duplicated ${binding.target} buffer name: ${binding.name}, existing: $v, new: $binding"

@@ -714,7 +714,7 @@ open class ShaderProgram private constructor(
         }
 
         class Buffers internal constructor(resources: Resources) : BindingManager() {
-            private val bindingPointMap = mutableMapOf<BufferTarget.Shader, MutableList<BindingPoint>>()
+            private val bindingPointMap = Object2ObjectOpenHashMap<BufferTarget.Shader, MutableList<BindingPoint>>()
 
             init {
                 for (entry in resources.shaderStorageBlockResource.entries.values) {
