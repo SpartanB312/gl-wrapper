@@ -3,6 +3,7 @@ package dev.luna5ama.glwrapper
 import dev.luna5ama.glwrapper.enums.BufferTarget
 import dev.luna5ama.glwrapper.objects.SamplerObject
 import dev.luna5ama.glwrapper.objects.TextureObject
+import it.unimi.dsi.fastutil.objects.Object2ObjectOpenHashMap
 import kotlin.contracts.ExperimentalContracts
 import kotlin.contracts.contract
 
@@ -35,9 +36,9 @@ data class ShaderBindingSpecs(
     )
 
     class Builder {
-        private val samplers = mutableMapOf<String, Sampler>()
-        private val images = mutableMapOf<String, Image>()
-        private val buffers = mutableMapOf<BufferTarget.Shader, MutableMap<String, Buffer>>()
+        private val samplers = Object2ObjectOpenHashMap<String, Sampler>()
+        private val images = Object2ObjectOpenHashMap<String, Image>()
+        private val buffers = Object2ObjectOpenHashMap<BufferTarget.Shader, MutableMap<String, Buffer>>()
 
         fun sampler(binding: Sampler) {
             val v = samplers.put(binding.name, binding)
